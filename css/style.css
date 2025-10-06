@@ -1,356 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-}
-
-h1 {
-    color: #2c3e50;
-    font-size: 2.2em;
-}
-
-h2 {
-    color: #34495e;
-    margin-bottom: 15px;
-    font-size: 1.5em;
-}
-
-h3 {
-    color: #2c3e50;
-    margin-bottom: 12px;
-}
-
-h4 {
-    color: #34495e;
-    margin-bottom: 8px;
-}
-
-/* Auth Section */
-.auth-section {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-email {
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* Mission Section */
-.mission-section {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    border-left: 4px solid #3498db;
-}
-
-#missionStatement {
-    width: 100%;
-    height: 80px;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    resize: vertical;
-    font-size: 1em;
-    margin-bottom: 10px;
-}
-
-/* Week Navigation */
-.week-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    background: #ecf0f1;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.week-display {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #2c3e50;
-}
-
-/* Priority Matrix */
-.priority-matrix {
-    margin-bottom: 30px;
-}
-
-.matrix-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.quadrant {
-    padding: 15px;
-    border-radius: 8px;
-    min-height: 200px;
-}
-
-.quadrant-1 { background: #ffebee; border: 2px solid #e57373; }
-.quadrant-2 { background: #e8f5e8; border: 2px solid #4caf50; }
-.quadrant-3 { background: #fff3e0; border: 2px solid #ffb74d; }
-.quadrant-4 { background: #f3e5f5; border: 2px solid #ba68c8; }
-
-.task-list {
-    min-height: 150px;
-    padding: 10px;
-}
-
-.task-item {
-    background: white;
-    padding: 8px 12px;
-    margin: 5px 0;
-    border-radius: 5px;
-    cursor: move;
-    border-left: 4px solid;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.task-item.quadrant-1 { border-left-color: #e57373; }
-.task-item.quadrant-2 { border-left-color: #4caf50; }
-.task-item.quadrant-3 { border-left-color: #ffb74d; }
-.task-item.quadrant-4 { border-left-color: #ba68c8; }
-
-/* Weekly Schedule */
-.weekly-schedule {
-    margin-bottom: 30px;
-}
-
-.schedule-grid {
-    display: flex;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.time-slots {
-    width: 120px;
-    background: #34495e;
-    color: white;
-}
-
-.time-header, .time-slot {
-    padding: 15px 10px;
-    border-bottom: 1px solid #2c3e50;
-    text-align: center;
-}
-
-.time-header {
-    background: #2c3e50;
-    font-weight: bold;
-}
-
-.days-container {
-    display: flex;
-    flex: 1;
-}
-
-.day-column {
-    flex: 1;
-    border-right: 1px solid #ecf0f1;
-}
-
-.day-header {
-    background: #3498db;
-    color: white;
-    padding: 15px 10px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.day-slot {
-    padding: 15px 10px;
-    border-bottom: 1px solid #ecf0f1;
-    min-height: 80px;
-    background: #f8f9fa;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.day-slot:hover {
-    background: #e3f2fd;
-}
-
-.scheduled-item {
-    background: white;
-    padding: 8px;
-    margin: 2px 0;
-    border-radius: 4px;
-    border-left: 3px solid #3498db;
-    font-size: 0.85em;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-/* Task Input */
-.task-input-section {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-.task-form {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.task-input, .quadrant-select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.task-input {
-    flex: 2;
-    min-width: 200px;
-}
-
-.quadrant-select {
-    flex: 1;
-    min-width: 150px;
-}
-
-/* Sharpen the Saw */
-.sharpen-saw-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-.sharpen-saw-section h2 {
-    color: white;
-}
-
-.saw-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.saw-dimension {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-}
-
-.saw-list {
-    min-height: 100px;
-    margin-bottom: 10px;
-}
-
-.saw-item {
-    background: rgba(255,255,255,0.2);
-    padding: 8px 12px;
-    margin: 5px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.saw-input {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.9);
-}
-
-/* Reflection Section */
-.reflection-section {
-    background: #fff3cd;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 4px solid #ffc107;
-}
-
-#weeklyReflection {
-    width: 100%;
-    height: 120px;
-    padding: 12px;
-    border: 1px solid #ffeaa7;
-    border-radius: 5px;
-    resize: vertical;
-    font-size: 1em;
-    margin-bottom: 10px;
-    background: #fffdf6;
-}
-
-/* Buttons */
-.btn-primary {
-    background: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s;
-}
-
-.btn-primary:hover {
-    background: #2980b9;
-}
-
-.btn-secondary {
-    background: #95a5a6;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background 0.3s;
-}
-
-.btn-secondary:hover {
-    background: #7f8c8d;
-}
-
-/* Modal */
+/* Improved Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -359,71 +7,91 @@ h4 {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    background: white;
-    margin: 15% auto;
+    background-color: #fefefe;
+    margin: 10% auto;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     width: 90%;
     max-width: 400px;
-    text-align: center;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
 }
 
 .modal-input {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-        margin: 10px;
-    }
-    
-    .header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .matrix-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .schedule-grid {
-        flex-direction: column;
-    }
-    
-    .time-slots {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-    }
-    
-    .time-header, .time-slot {
-        min-width: 100px;
-    }
-    
-    .days-container {
-        flex-direction: column;
-    }
-    
-    .task-form {
-        flex-direction: column;
-    }
-    
-    .task-input, .quadrant-select {
-        width: 100%;
-    }
-    
-    .saw-grid {
-        grid-template-columns: 1fr;
-    }
+.modal-input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.auth-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.auth-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.auth-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.auth-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
 }
