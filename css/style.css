@@ -1,4 +1,393 @@
-/* Improved Modal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.auth-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-email {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* Section Styles */
+.mission-section, 
+.schedule-section, 
+.task-input-section, 
+.sharpen-saw-section, 
+.reflection-section {
+    padding: 25px 30px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.mission-section {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+}
+
+/* Week Navigation */
+.week-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.week-display {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+
+/* Priority Matrix */
+.priority-matrix {
+    margin-bottom: 30px;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quadrant {
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 200px;
+    border: 2px solid;
+}
+
+.quadrant-1 { 
+    background: #ffebee; 
+    border-color: #e57373; 
+}
+
+.quadrant-2 { 
+    background: #e8f5e8; 
+    border-color: #4caf50; 
+}
+
+.quadrant-3 { 
+    background: #fff3e0; 
+    border-color: #ffb74d; 
+}
+
+.quadrant-4 { 
+    background: #f3e5f5; 
+    border-color: #ba68c8; 
+}
+
+.quadrant h4 {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #2c3e50;
+}
+
+.task-list {
+    min-height: 150px;
+    padding: 10px;
+}
+
+.task-item {
+    background: white;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    cursor: move;
+    border-left: 4px solid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-item.quadrant-1 { border-left-color: #e57373; }
+.task-item.quadrant-2 { border-left-color: #4caf50; }
+.task-item.quadrant-3 { border-left-color: #ffb74d; }
+.task-item.quadrant-4 { border-left-color: #ba68c8; }
+
+/* Weekly Schedule */
+.weekly-schedule {
+    margin-top: 30px;
+}
+
+.schedule-grid {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+.time-slots {
+    width: 120px;
+    background: #34495e;
+    color: white;
+    flex-shrink: 0;
+}
+
+.time-header, .time-slot {
+    padding: 15px 10px;
+    border-bottom: 1px solid #2c3e50;
+    text-align: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-header {
+    background: #2c3e50;
+    font-weight: bold;
+    height: 60px;
+}
+
+.days-container {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+}
+
+.day-column {
+    flex: 1;
+    min-width: 140px;
+    border-right: 1px solid #ecf0f1;
+}
+
+.day-header {
+    background: #3498db;
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: bold;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-slot {
+    padding: 10px;
+    border-bottom: 1px solid #ecf0f1;
+    height: 80px;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-slot:hover {
+    background: #e3f2fd;
+}
+
+.scheduled-activity {
+    background: white;
+    padding: 8px;
+    border-radius: 4px;
+    border-left: 3px solid #3498db;
+    font-size: 0.8em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 100%;
+    text-align: center;
+}
+
+/* Task Input Section */
+.task-input-section {
+    background: #f8f9fa;
+}
+
+.task-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.task-input {
+    flex: 2;
+    min-width: 200px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.quadrant-select {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Sharpen the Saw Section */
+.sharpen-saw-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.sharpen-saw-section h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.saw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.saw-dimension {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.saw-dimension h4 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.saw-list {
+    min-height: 120px;
+    margin-bottom: 15px;
+}
+
+.saw-item {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.saw-item:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.saw-item.completed {
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+.saw-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.9);
+    font-size: 0.9em;
+}
+
+/* Reflection Section */
+.reflection-section {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+#missionStatement, #weeklyReflection {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1em;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+
+#missionStatement {
+    height: 100px;
+}
+
+#weeklyReflection {
+    height: 120px;
+}
+
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -44,7 +433,7 @@
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
     color: #333;
 }
@@ -72,7 +461,7 @@
 
 .auth-message {
     margin-top: 15px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
     text-align: center;
     font-weight: bold;
@@ -94,4 +483,104 @@
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        border-radius: 10px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.5em;
+    }
+    
+    .matrix-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .schedule-grid {
+        flex-direction: column;
+    }
+    
+    .time-slots {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .time-header, .time-slot {
+        min-width: 100px;
+        height: 60px;
+    }
+    
+    .days-container {
+        flex-direction: column;
+    }
+    
+    .day-column {
+        min-width: 100%;
+    }
+    
+    .task-form {
+        flex-direction: column;
+    }
+    
+    .task-input, .quadrant-select {
+        width: 100%;
+    }
+    
+    .saw-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mission-section, 
+    .schedule-section, 
+    .task-input-section, 
+    .sharpen-saw-section, 
+    .reflection-section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .week-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-content {
+        margin: 5% auto;
+        padding: 20px;
+    }
 }
