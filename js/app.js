@@ -1,139 +1,98 @@
-// Improved Authentication Functions
-async function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('authMessage');
-
-    if (!email || !password) {
-        showAuthMessage('Harap isi email dan password', 'error');
-        return;
-    }
-
-    try {
-        showAuthMessage('Sedang login...', 'info');
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        showAuthMessage('Login berhasil!', 'success');
-        closeLoginModal();
-    } catch (error) {
-        console.error('Login error:', error);
-        let errorMessage = 'Login gagal: ';
-        
-        switch (error.code) {
-            case 'auth/user-not-found':
-                errorMessage += 'Email tidak terdaftar';
-                break;
-            case 'auth/wrong-password':
-                errorMessage += 'Password salah';
-                break;
-            case 'auth/invalid-email':
-                errorMessage += 'Format email tidak valid';
-                break;
-            default:
-                errorMessage += error.message;
-        }
-        showAuthMessage(errorMessage, 'error');
-    }
-}
-
-async function signup() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('authMessage');
-
-    if (!email || !password) {
-        showAuthMessage('Harap isi email dan password', 'error');
-        return;
-    }
-
-    if (password.length < 6) {
-        showAuthMessage('Password harus minimal 6 karakter', 'error');
-        return;
-    }
-
-    try {
-        showAuthMessage('Mendaftarkan akun...', 'info');
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        showAuthMessage('Pendaftaran berhasil! Anda sudah login.', 'success');
-        
-        // Create initial user data structure
-        const user = userCredential.user;
-        const initialUserData = {
-            email: user.email,
-            mission: "Misi saya adalah menciptakan lingkungan belajar yang inklusif dan inspiratif bagi setiap siswa, sambil menjaga keseimbangan antara kehidupan profesional dan pribadi.",
-            tasks: [],
-            sharpenSaw: {},
-            reflections: {},
-            schedule: {},
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
-        
-        await db.collection('users').doc(user.uid).set(initialUserData);
-        closeLoginModal();
-    } catch (error) {
-        console.error('Signup error:', error);
-        let errorMessage = 'Pendaftaran gagal: ';
-        
-        switch (error.code) {
-            case 'auth/email-already-in-use':
-                errorMessage += 'Email sudah digunakan';
-                break;
-            case 'auth/weak-password':
-                errorMessage += 'Password terlalu lemah';
-                break;
-            case 'auth/invalid-email':
-                errorMessage += 'Format email tidak valid';
-                break;
-            default:
-                errorMessage += error.message;
-        }
-        showAuthMessage(errorMessage, 'error');
-    }
-}
-
-function showAuthMessage(message, type) {
-    const messageDiv = document.getElementById('authMessage');
-    messageDiv.textContent = message;
-    messageDiv.className = `auth-message ${type}`;
+// Fix untuk generate weekly schedule yang benar
+function generateWeeklySchedule() {
+    const daysContainer = document.querySelector('.days-container');
+    const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+    const timeSlots = ['06.00-07.00', '07.00-12.00', '12.00-13.00', '13.00-15.00', '15.00-18.00', '18.00-21.00'];
     
-    // Auto hide success messages after 3 seconds
-    if (type === 'success') {
-        setTimeout(() => {
-            messageDiv.textContent = '';
-            messageDiv.className = 'auth-message';
-        }, 3000);
-    }
-}
-
-function logout() {
-    if (confirm('Yakin ingin logout?')) {
-        auth.signOut().then(() => {
-            console.log('User signed out successfully');
-            // Reset UI to initial state
-            resetUI();
-        }).catch((error) => {
-            console.error('Logout error:', error);
+    daysContainer.innerHTML = '';
+    
+    days.forEach(day => {
+        const dayColumn = document.createElement('div');
+        dayColumn.className = 'day-column';
+        dayColumn.innerHTML = `<div class="day-header">${day}</div>`;
+        
+        timeSlots.forEach(timeSlot => {
+            const slot = document.createElement('div');
+            slot.className = 'day-slot';
+            slot.dataset.day = day;
+            slot.dataset.time = timeSlot;
+            
+            // Cek apakah ada aktivitas yang sudah dijadwalkan
+            const existingActivity = getScheduledActivity(day, timeSlot);
+            if (existingActivity) {
+                slot.innerHTML = `<div class="scheduled-activity">${existingActivity}</div>`;
+            } else {
+                slot.innerHTML = '<div class="scheduled-activity"></div>';
+            }
+            
+            slot.addEventListener('click', () => openSlotEditor(day, timeSlot));
+            dayColumn.appendChild(slot);
         });
-    }
+        
+        daysContainer.appendChild(dayColumn);
+    });
 }
 
-function resetUI() {
-    // Clear all data displays
-    document.getElementById('missionStatement').value = '';
-    document.getElementById('weeklyReflection').value = '';
+// Fix untuk save scheduled activity
+function saveScheduledActivity(day, time, activity) {
+    const weekKey = getWeekKey();
     
-    // Clear task quadrants
-    for (let i = 1; i <= 4; i++) {
-        document.getElementById(`quadrant${i}`).innerHTML = '';
+    if (!userData.schedule) userData.schedule = {};
+    if (!userData.schedule[weekKey]) userData.schedule[weekKey] = {};
+    if (!userData.schedule[weekKey][day]) userData.schedule[weekKey][day] = {};
+    
+    userData.schedule[weekKey][day][time] = activity;
+    saveUserData();
+}
+
+// Fix function untuk mendapatkan aktivitas yang dijadwalkan
+function getScheduledActivity(day, time) {
+    const weekKey = getWeekKey();
+    return userData.schedule?.[weekKey]?.[day]?.[time] || '';
+}
+
+// Fix untuk load sample data yang benar
+function loadSampleData() {
+    // Only load sample data if no user data exists and user is not logged in
+    if (auth.currentUser) return;
+    
+    if (!userData.mission) {
+        document.getElementById('missionStatement').value = "Misi saya adalah menciptakan lingkungan belajar yang inklusif dan inspiratif bagi setiap siswa, sambil menjaga keseimbangan antara kehidupan profesional dan pribadi.";
     }
     
-    // Clear sharpen the saw
-    const dimensions = ['physical', 'spiritual', 'intellectual', 'social'];
-    dimensions.forEach(dim => {
-        document.getElementById(`${dim}List`).innerHTML = '';
-    });
+    // Add sample tasks if no tasks exist
+    if (!userData.tasks || userData.tasks.length === 0) {
+        const sampleTasks = [
+            { id: '1', title: 'Menyusun RPP proyek minggu depan', quadrant: '2', completed: false, createdAt: new Date().toISOString() },
+            { id: '2', title: 'Koreksi ulangan harian', quadrant: '1', completed: false, createdAt: new Date().toISOString() },
+            { id: '3', title: 'Rapat koordinasi mingguan', quadrant: '3', completed: false, createdAt: new Date().toISOString() },
+            { id: '4', title: 'Baca buku pengembangan diri', quadrant: '2', completed: false, createdAt: new Date().toISOString() }
+        ];
+        
+        sampleTasks.forEach(task => addTaskToQuadrant(task));
+        userData.tasks = sampleTasks;
+    }
     
-    // Clear schedule
-    document.querySelectorAll('.scheduled-activity').forEach(item => {
-        item.innerHTML = '';
-    });
+    // Add sample sharpen the saw items
+    if (!userData.sharpenSaw) {
+        userData.sharpenSaw = {
+            physical: [
+                { id: '1', activity: 'Olahraga pagi 30 menit', completed: false },
+                { id: '2', activity: 'Jalan santai sore', completed: false }
+            ],
+            spiritual: [
+                { id: '1', activity: 'Meditasi 10 menit', completed: false },
+                { id: '2', activity: 'Membaca buku inspiratif', completed: false }
+            ],
+            intellectual: [
+                { id: '1', activity: 'Baca artikel pendidikan', completed: false },
+                { id: '2', activity: 'Ikuti webinar guru', completed: false }
+            ],
+            social: [
+                { id: '1', activity: 'Quality time dengan keluarga', completed: false },
+                { id: '2', activity: 'Telepon teman lama', completed: false }
+            ]
+        };
+        loadSharpenSawItems();
+    }
 }
