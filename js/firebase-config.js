@@ -1,29 +1,21 @@
-// Firebase configuration
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "your-sender-id",
-    appId: "your-app-id"
+  apiKey: "AIzaSyASpHaRhfJFUyhC3Osj24CTgU06Vsz10x0",
+  authDomain: "habits-agenda.firebaseapp.com",
+  projectId: "habits-agenda",
+  storageBucket: "habits-agenda.firebasestorage.app",
+  messagingSenderId: "1068837152911",
+  appId: "1:1068837152911:web:85111cd637f0840e4668fa",
+  measurementId: "G-LQZP1GL06X"
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-
-// Firebase Auth state listener
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        document.getElementById('loginBtn').style.display = 'none';
-        document.getElementById('logoutBtn').style.display = 'inline-block';
-        document.getElementById('userEmail').textContent = user.email;
-        loadUserData();
-    } else {
-        document.getElementById('loginBtn').style.display = 'inline-block';
-        document.getElementById('logoutBtn').style.display = 'none';
-        document.getElementById('userEmail').textContent = '';
-        document.getElementById('loginModal').style.display = 'block';
-    }
-});
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
